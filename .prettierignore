@@ -1,0 +1,9 @@
+# Ignore artifacts:
+build
+coverage
+# /src/assets/javascripts/services
+
+# Ignore all HTML files:
+*.html
+.js
+# *.jsx

@@ -1,0 +1,15 @@
+{   
+    "extends": ["airbnb", "plugin:prettier/recommended", "prettier/react", "plugin:cypress/recommended"],
+    "printWidth": 100,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "tabWidth": 4,
+    "bracketSpacing": true,
+    "semi": false,
+    "useTabs": false,
+    "endOfLine": "lf",
+    "jsxBracketSameLine": false,
+    "scripts": {
+        "format": "prettier --write \"**/*.+(js|jsx|json|css|md)\""
+    }
+}

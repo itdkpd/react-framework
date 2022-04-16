@@ -1,0 +1,63 @@
+{
+  "name": "react-framework",
+  "version": "1.0.0",
+  "description": "template for react",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack serve --open --config webpack.dev.js",
+    "build-test": "webpack --config webpack.prodtest.js&&serve -s build -l 3000 --ssl-cert=./powershell/domains-certificate.pem --ssl-key=./powershell/domains-certificate-key.pem",
+    "build": "webpack --config webpack.prod.js",
+    "build-dev": "webpack --config webpack.dev.js&&serve -s dist -l 3000 --ssl-cert=./powershell/domains-certificate.pem --ssl-key=./powershell/domains-certificate-key.pem",
+    "prodmode": "serve -s build -l 3000 --ssl-cert=./powershell/domains-certificate.pem --ssl-key=./powershell/domains-certificate-key.pem"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itdkpd/react-framework.git"
+  },
+  "keywords": [
+    "react",
+    "template",
+    "for",
+    "beginners"
+  ],
+  "author": "Kevin Keith Damaso",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/itdkpd/react-framework/issues"
+  },
+  "homepage": "https://github.com/itdkpd/react-framework#readme",
+  "devDependencies": {
+    "@babel/core": "^7.17.9",
+    "@babel/eslint-parser": "^7.17.0",
+    "@babel/plugin-proposal-class-properties": "^7.16.7",
+    "@babel/plugin-proposal-export-default-from": "^7.16.7",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "babel-loader": "^8.2.4",
+    "copy-webpack-plugin": "^10.2.4",
+    "css-loader": "^6.7.1",
+    "eslint": "^8.13.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-cypress": "^2.12.1",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.29.4",
+    "eslint-webpack-plugin": "^3.1.1",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.6.0",
+    "sass-loader": "^12.6.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.72.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.8.1"
+  },
+  "dependencies": {
+    "axios": "^0.26.1",
+    "jquery": "^3.6.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-router-dom": "^6.3.0"
+  }
+}
