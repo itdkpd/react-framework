@@ -6,6 +6,10 @@ export default makeStyles({
         display: 'block',
         fontSize: '12px',
         lineHeight: '12px',
-        marginBottom: '5px'
+        marginBottom: '5px',
+
+        '&::first-letter': {
+            textTransform: 'capitalize'
+        }
     }
 });

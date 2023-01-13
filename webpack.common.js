@@ -81,7 +81,7 @@ module.exports = {
             }
         ]
     },
-    plugins: [htmlPlugin, copyPlugin, miniCssExtractPlugin, jqueryPlugin, esLintPlugin, webpackObfuscator],
+    plugins: [htmlPlugin, copyPlugin, miniCssExtractPlugin, jqueryPlugin, esLintPlugin],
     optimization: {
         moduleIds: 'deterministic',
         runtimeChunk: 'single',

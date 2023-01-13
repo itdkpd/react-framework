@@ -2,11 +2,12 @@ import React, { useContext } from "react"
 import PasswordInput from "./passwordInput"
 import { FormContext } from "../../../assets/js/context/formContext"
 import useStyles from "./style"
+
 const Input = (props) => {
-    const { register, getErrors, handleChange } = useContext(FormContext)
-    const { type = 'text', name, validation, handleInputChange, ...componentProps } = props
-    const errorMessage = getErrors(name)
     const classes = useStyles()
+    const { type = 'text', name, validation, handleInputChange, handleInputBlur, required, ...componentProps } = props
+    const { register, getErrors, handleChange } = useContext(FormContext)
+    const errorMessage = getErrors(name)
 
     const inputChange = (e) => {
         handleChange(e)
@@ -15,11 +16,18 @@ const Input = (props) => {
         }
     }
 
+    const inputBlur = (e) => {
+        handleChange(e)
+        if(typeof handleInputBlur === 'function') {
+            handleInputBlur(e)
+        }
+    }
+
     switch (props.type) {
         case "password":
             return (
                 <>
-                    <PasswordInput {...register(name, validation)} onChange={inputChange}
+                    <PasswordInput {...register(name, { required, ...validation })} onChange={inputChange} onBlur={inputBlur}
                         {...componentProps} aria-label={`${name} input`} name={name} id={name} type={type}
                         className="form-control" />
                     {(errorMessage) &&
@@ -29,7 +37,7 @@ const Input = (props) => {
             )
         default: return (
             <>
-                <input {...register(name, validation)} onChange={inputChange}
+                <input {...register(name, { required, ...validation })} onChange={inputChange} onBlur={inputBlur}
                     {...componentProps} aria-label={`${name} input`} name={name} id={name} type={type}
                     className="form-control" />
                 {(errorMessage) &&

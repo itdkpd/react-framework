@@ -24,7 +24,6 @@ function Login1() {
     useMountEffect(() => {
         // watch('username')
     }, [])
-    console.log('rendered')
     const authenticateUser = (data) => {
         const { username, password } = data
         if(username && password) {
@@ -55,6 +54,9 @@ function Login1() {
                     <NavLink className="app-item-name" exact="true" to="/login">
                         <span>test</span>
                     </NavLink>
+                    <NavLink className="app-item-name" exact="true" to="/loader">
+                        <span>loader</span>
+                    </NavLink>
                 </div>
             </div>
             <div className={classes.loginContainer}>
@@ -64,7 +66,10 @@ function Login1() {
                             <label htmlFor="Username">User Name</label>
                         </div>
                         <div className="flex-23">
-                            <Input validation={{ required: true, message: 'required' }} type="text" id="username1" name="username1" aria-label="username1" />
+                            <Input validation={{ message: 'required' }}
+                                    type="text"
+                                    name="username"
+                                    aria-label="username" required />
                         </div>
                     </div>
                     <div className="flex-row mt-2">
@@ -72,7 +77,10 @@ function Login1() {
                             <label htmlFor="Password">Password</label>
                         </div>
                         <div className="flex-23">
-                            <Input validation={{ required: true, message: 'required' }} type="password1" id="password1" name="password1" aria-label="paswword1" />
+                            <Input validation={{ message: 'required' }}
+                                    type="password"
+                                    name="password"
+                                    aria-label="password" required />
                         </div>
                     </div>
                     <div className="flex-row mt-5">

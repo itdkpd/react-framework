@@ -12,20 +12,23 @@ import packageJson from '../../../package.json'
 const Login = () => {
     const classes = useStyles()
     // const { loginUser } = useContext(AuthContext)
-    const { getValues, setValue } = useContext(FormContext)
+    const { initState, setState, getState } = useContext(FormContext)
 
-    const useMountEffect = (func) => {
-        useEffect(func, [])
-    }
+    useEffect(() => {
+        initState({
+            // fields
+            username: 'username',
+            password: 'password',
+
+            // variables
+            testing: 'qwerty',
+        })
+    }, [])
 
     const clear = async () => {
-        console.log(getValues('username'))
-        setValue('username', 'sd')
+        setState({ testing: 'q1', username: 's1', password: '' })
+        getState('testing')
     }
-
-    useMountEffect(() => {
-        // watch('username')
-    }, [])
 
     const authenticateUser = (data) => {
         const { username, password } = data
@@ -57,6 +60,9 @@ const Login = () => {
                     <NavLink className="app-item-name" exact="true" to="/login1">
                         <span>test</span>
                     </NavLink>
+                    <NavLink className="app-item-name" exact="true" to="/loader">
+                        <span>{ getState('testing') }</span>
+                    </NavLink>
                 </div>
             </div>
             <div className={classes.loginContainer}>
@@ -66,10 +72,7 @@ const Login = () => {
                             <label htmlFor="Username">User Name</label>
                         </div>
                         <div className="flex-23">
-                            <Input validation={{ required: true, message: 'required' }}
-                                type="text"
-                                name="username"
-                                aria-label="username" />
+                            <Input name="username" required />
                         </div>
                     </div>
                     <div className="flex-row mt-2">
@@ -77,7 +80,7 @@ const Login = () => {
                             <label htmlFor="Password">Password</label>
                         </div>
                         <div className="flex-23">
-                            <Input validation={{ required: true, message: 'required' }} type="password" name="password" aria-label="password" />
+                            <Input type="password" name="password" required />
                         </div>
                     </div>
                     <div className="flex-row mt-5">

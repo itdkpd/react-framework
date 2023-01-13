@@ -9,13 +9,17 @@ const common = () => {
             case "handleChange":
                 state[action.field] = action.payload
                 return {
-                    ...state
+                    ...state,
                 }
             case "setValue":
                 state[action.field] = action.payload
-
                 return {
-                    ...state
+                    ...state,
+                }
+            case "setState":
+                return {
+                    ...state,
+                    ...action.payload
                 }
             case "setError":
                 state[`${action.field}errorMessage`] = action.payload
@@ -43,6 +47,35 @@ const common = () => {
     })
 
     const [values, dispatch] = useReducer(inputFormReducer, {})
+
+    const setState = async (param) => {
+        const test = {}
+        Object.keys(param).forEach(key => {
+            obj.current[key].current.value = param[key]
+            test[key] = param[key]
+        });
+        await dispatch({
+            type: 'setState',
+            payload: test
+        })
+    }
+
+    const initState = async (initialValue) => {
+        const test = {}
+        Object.keys(initialValue).forEach(key => {
+            if(obj.current[key]?.current) {
+                obj.current[key].current.value = initialValue[key] || ""
+            } else {
+                watch(key, initialValue[key])
+            }
+
+            test[key] = initialValue[key]
+        });
+        await dispatch({
+            type: 'setState',
+            payload: test
+        })
+    }
 
     const setValue = async (name, value) => {
         const errors = errorHandlers.current
@@ -106,9 +139,13 @@ const common = () => {
         obj.current[name] = ref
 
         useEffect(() => {
-            if(errorHandler?.required) {
+            if(errorHandler?.required && !errorHandler?.message) {
                 const errors = errorHandlers.current
-                errors[name] = { required: true, message: 'required', show: false }
+                errors[name] = { required: true, message: `${name} field is required`, show: false }
+                errorHandlers.current = errors
+            } else if(errorHandler?.required && errorHandler?.message) {
+                const errors = errorHandlers.current
+                errors[name] = { required: true, message: errorHandler?.message, show: false }
                 errorHandlers.current = errors
             }
 
@@ -131,11 +168,10 @@ const common = () => {
 
     const getValues = (name) => {
         const watch = watchers.current
-
         if(name || (name && watch.hasOwnProperty(name))) {
             return obj.current[name]?.current.value
         } else {
-            const val = []
+            const val = {}
             Object.keys(obj.current).forEach(key => {
                 val[key] = obj.current[key]?.current.value
             });
@@ -158,18 +194,34 @@ const common = () => {
 
     const watch = (name, initValue) => {
         const object = watchers.current
+        if(obj.current[name]?.current) {
+            obj.current[name].current.value = initValue || ""
+        } else {
+            obj.current[name] = {
+                current: {
+                    value: initValue || ""
+                }
+            }
+        }
+        
         object[name] = initValue || ""
         watchers.current = object
+        setValue(name, initValue || "")
     }
 
     return {
+        initState,
         register,
         setValue,
+        setState,
         handleChange,
         getValues,
         watch,
-        getErrors
+        getErrors,
+        getState: getValues
     }
 }
 
-export default common
+export {
+    common
+}

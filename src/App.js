@@ -30,4 +30,8 @@ const App = () => {
     )
 }
 
-export default App
+const areEqual = (prevProps, nextProps) => {
+    return JSON.stringify(prevProps) === JSON.stringify(nextProps)
+}
+
+export default React.memo(App, areEqual)
